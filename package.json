@@ -1,0 +1,43 @@
+{
+  "name": "mdfind",
+  "version": "0.0.1",
+  "description": "Node interface for using Spotlight on Mac (via mdfind)",
+  "main": "lib/index.js",
+  "scripts": {
+    "pretest": "babel test --out-dir tmp",
+    "test": "mocha tmp",
+    "build": "babel src --out-dir lib",
+    "validate": "npm run build && npm test",
+    "prepublish": "npm run clean && npm run build",
+    "clean": "rimraf lib tmp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brandonhorst/node-mdfind.git"
+  },
+  "keywords": [
+    "mdfind",
+    "spotlight",
+    "mac",
+    "osx",
+    "find",
+    "search"
+  ],
+  "author": "@brandonhorst",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brandonhorst/node-mdfind/issues"
+  },
+  "homepage": "https://github.com/brandonhorst/node-mdfind",
+  "devDependencies": {
+    "babel": "^5.1.13",
+    "chai": "^2.3.0",
+    "mocha": "^2.2.4",
+    "rimraf": "^2.3.2"
+  },
+  "dependencies": {
+    "event-stream": "^3.3.0",
+    "lodash": "^3.7.0",
+    "split": "^0.3.3"
+  }
+}
