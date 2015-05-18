@@ -21,7 +21,7 @@ function extractData (attrs, line) {
 
   const keys = ['path'].concat(attrs)
   const result = _.zipObject(keys, adjustedLine)
-  return result
+  this.emit('data', result)
 }
 
 function getItem (item) {
@@ -54,10 +54,13 @@ export default function mdfind (query, {attributes = [], names = [], directories
   const child = spawn('mdfind', args)
   const jsonify = _.partial(extractData, attributes)
 
-  return child.stdout
-    .pipe(split('\0'))
-    .pipe(map(filterEmpty))
-    .pipe(through(jsonify))
+  return {
+    output: child.stdout
+      .pipe(split('\0'))
+      .pipe(map(filterEmpty))
+      .pipe(through(jsonify)),
+    terminate: () => child.kill()
+  }
 }
 
 function makeArgs(array, argName) {
