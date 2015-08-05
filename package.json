@@ -5,9 +5,9 @@
   "main": "lib/index.js",
   "scripts": {
     "pretest": "babel test --out-dir tmp",
-    "test": "mocha tmp",
+    "test": "node tmp/test.js",
     "build": "babel src --out-dir lib",
-    "validate": "npm run build && npm test",
+    "validate": "npm run build && npm run test",
     "prepublish": "npm run clean && npm run build",
     "clean": "rimraf lib tmp"
   },
@@ -30,14 +30,12 @@
   },
   "homepage": "https://github.com/brandonhorst/node-mdfind",
   "devDependencies": {
-    "babel": "^5.1.13",
-    "chai": "^2.3.0",
-    "mocha": "^2.2.4",
-    "rimraf": "^2.3.2"
+    "babel": "^5.8.20",
+    "rimraf": "^2.4.2"
   },
   "dependencies": {
-    "event-stream": "^3.3.0",
-    "lodash": "^3.7.0",
-    "split": "^0.3.3"
+    "event-stream": "^3.3.1",
+    "lodash": "^3.10.1",
+    "split": "^1.0.0"
   }
 }

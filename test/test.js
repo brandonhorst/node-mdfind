@@ -1,8 +1,5 @@
 import mdfind from '..'
 
-describe('mdfind', () => {
-  it('does stuff', done => {
-    const res = mdfind('kind:contact', {attributes: ['kMDItemDisplayName', 'kMDItemEmailAddresses']})
-    res.on('end', done)
-  })
-})
+const res = mdfind({query:'kind:contact', attributes: ['kMDItemDisplayName', 'kMDItemEmailAddresses'], limit: 10})
+res.output.on('data', console.log)
+res.output.on('end', () => console.log('done'))

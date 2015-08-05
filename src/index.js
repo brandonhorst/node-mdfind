@@ -44,20 +44,30 @@ function filterEmpty (data, done) {
   }
 }
 
-export default function mdfind (query, {attributes = [], names = [], directories = [], live = false} = {}) {
+export default function mdfind ({query, attributes = [], names = [], directories = [], live = false, interpret = false, limit} = {}) {
   const dirArgs = makeArgs(directories, '-onlyin')
   const nameArgs = makeArgs(names, '-name')
   const attrArgs = makeArgs(attributes, '-attr')
+  const interpretArgs = interpret ? ['-interpret'] : []
+  const queryArgs = query ? [query] : []
 
-  const args = ['-0'].concat(dirArgs, nameArgs, attrArgs, [query], live ? ['-live', '-reprint'] : [])
+  const args = ['-0'].concat(dirArgs, nameArgs, attrArgs, interpretArgs, live ? ['-live', '-reprint'] : [], queryArgs)
 
   const child = spawn('mdfind', args)
   const jsonify = _.partial(extractData, attributes)
+
+  let times = 0
 
   return {
     output: child.stdout
       .pipe(split('\0'))
       .pipe(map(filterEmpty))
+      .pipe(through(function (data) {
+        times++
+        if (limit && times === limit) child.kill()
+        if (limit && times > limit) return
+        this.queue(data)
+      }))
       .pipe(through(jsonify)),
     terminate: () => child.kill()
   }
