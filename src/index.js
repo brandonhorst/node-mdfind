@@ -19,7 +19,7 @@ function extractData (attrs, line) {
 
   const adjustedLine = splitLine.map(getItem)
 
-  const keys = ['path'].concat(attrs)
+  const keys = ['kMDItemPath'].concat(attrs)
   const result = _.zipObject(keys, adjustedLine)
   this.emit('data', result)
 }
