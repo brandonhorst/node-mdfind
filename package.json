@@ -30,12 +30,12 @@
   },
   "homepage": "https://github.com/brandonhorst/node-mdfind",
   "devDependencies": {
-    "babel": "^5.8.20",
+    "babel": "^6.23.0",
     "rimraf": "^2.4.2"
   },
   "dependencies": {
     "event-stream": "^3.3.1",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.10",
     "split": "^1.0.0"
   }
 }
